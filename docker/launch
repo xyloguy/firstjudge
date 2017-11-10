@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+DOCKER_DIR=$(dirname $0)
+docker-compose -f "$DOCKER_DIR/docker-compose.yaml" up -d
