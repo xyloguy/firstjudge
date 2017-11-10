@@ -19,7 +19,7 @@ class CreateTeam extends Migration
             $table->integer('tournament_id');
             $table->string('team_number');
             $table->string('team_name');
-            $table->text('logo');
+            $table->text('logo')->nullable();
             $table->timestamps();
         });
     }
