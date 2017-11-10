@@ -77,8 +77,8 @@ class TeamController extends Controller
      */
     public function show($id)
     {
-        $tournaments = Team::find($id)->get();
-        return $tournaments;
+        $team = Team::find($id)->first();
+        return $team;
     }
 
     /**

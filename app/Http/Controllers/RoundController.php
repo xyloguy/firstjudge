@@ -13,7 +13,8 @@ class RoundController extends Controller
      */
     public function index()
     {
-        //
+        $rounds = Round::all();
+        return $rounds;
     }
 
     /**
@@ -45,7 +46,8 @@ class RoundController extends Controller
      */
     public function show($id)
     {
-        //
+        $round = Rounds::find($id)->get();
+        return $round;
     }
 
     /**
