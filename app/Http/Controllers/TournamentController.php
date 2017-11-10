@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tournament;
 use Illuminate\Http\Request;
 
 class TournamentController extends Controller
@@ -13,7 +14,8 @@ class TournamentController extends Controller
      */
     public function index()
     {
-        //
+        $tournaments = Tournament::with('teams')->with('sponsors')->with('rounds')->get();
+        return $tournaments;
     }
 
     /**
@@ -45,7 +47,8 @@ class TournamentController extends Controller
      */
     public function show($id)
     {
-        //
+        $tournaments = Tournament::with('teams')->find($id)->first();
+        return $tournaments;
     }
 
     /**

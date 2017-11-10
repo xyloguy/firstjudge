@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Team;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -14,6 +15,8 @@ class TeamController extends Controller
     public function index()
     {
         //
+        $tournaments = Team::with('scores')->get();
+        return $tournaments;
     }
 
     /**
@@ -45,7 +48,8 @@ class TeamController extends Controller
      */
     public function show($id)
     {
-        //
+        $tournaments = Team::find($id)->with('scores')->get();
+        return $tournaments;
     }
 
     /**
