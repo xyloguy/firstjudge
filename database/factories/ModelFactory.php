@@ -22,3 +22,13 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Team::class, function (Faker\Generator $faker) {
+    return [
+        'tournament_id' => 1,
+        'team_number' => $faker->buildingNumber,
+        'team_name' => $faker->streetName,
+        'logo' => null,
+    ];
+});
+
