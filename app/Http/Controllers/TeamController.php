@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Team;
+use Auth;
 use Illuminate\Http\Request;
+use Validator;
+use Illuminate\Validation\Rule;
 
 class TeamController extends Controller
 {
@@ -15,7 +18,7 @@ class TeamController extends Controller
     public function index()
     {
         //
-        $tournaments = Team::with('scores')->get();
+        $tournaments = Team::all();
         return $tournaments;
     }
 
@@ -37,7 +40,33 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the submission
+        $messages = [
+            'team_number.required' => 'Team number is required.',
+            'team_name.required' => 'Team name is required.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'team_number' => 'required',
+            'team_name' => 'required',
+        ], $messages);
+
+        if($validator->fails()){
+            $messages = $validator->messages();
+            return array('errors'=>$messages);
+        }
+
+        $current_tournament_id = 0; // probs get this from session
+
+        $team = new Team;
+        $team->tournament_id = $current_tournament_id;
+        $team->team_number = $request->input('team_number');
+        $team->team_name = $request->input('team_name');
+        $team->logo = $request->input('logo');
+        $team->save();
+
+        return $team;
+
     }
 
     /**
@@ -48,7 +77,7 @@ class TeamController extends Controller
      */
     public function show($id)
     {
-        $tournaments = Team::find($id)->with('scores')->get();
+        $tournaments = Team::find($id)->get();
         return $tournaments;
     }
 
@@ -72,7 +101,32 @@ class TeamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate the submission
+        $messages = [
+            'team_number.required' => 'Team number is required.',
+            'team_name.required' => 'Team name is required.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'team_number' => 'required',
+            'team_name' => 'required',
+        ], $messages);
+
+        if($validator->fails()){
+            $messages = $validator->messages();
+            return array('errors'=>$messages);
+        }
+
+        $current_tournament_id = 0; // probs get this from session
+
+        $team = Team::find($id);
+        $team->tournament_id = $current_tournament_id;
+        $team->team_number = $request->input('team_number');
+        $team->team_name = $request->input('team_name');
+        $team->logo = $request->input('logo');
+        $team->save();
+
+        return $team;
     }
 
     /**
