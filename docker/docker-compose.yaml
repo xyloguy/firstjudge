@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+    web-server:
+        build: .
+        volumes:
+            - "..:/srv/code"
+            - "../public/nginx.conf:/etc/nginx/sites-enabled/website"
+        environment:
+            DB_HOST: mysql
+            DB_DATABASE: firstjudge
+            DB_USERNAME: root
+            DB_PASSWORD: root
+        depends_on:
+            - mysql
+        ports:
+            - 8080:80
+    mysql:
+        image: mysql:5.7
+        volumes:
+            - database:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: firstjudge
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - 3306:3306
+
+volumes:
+    database:
+
