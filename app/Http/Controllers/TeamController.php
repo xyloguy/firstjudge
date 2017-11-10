@@ -119,7 +119,7 @@ class TeamController extends Controller
 
         $current_tournament_id = 0; // probs get this from session
 
-        $team = Team::find($id);
+        $team = Team::find($id)->first();
         $team->tournament_id = $current_tournament_id;
         $team->team_number = $request->input('team_number');
         $team->team_name = $request->input('team_name');

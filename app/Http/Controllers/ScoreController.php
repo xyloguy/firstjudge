@@ -85,7 +85,7 @@ class ScoreController extends Controller
 
         $round_total = 0; // calculate from score sheet - probs in separate class
 
-        $team = Score::find($id);
+        $team = Score::find($id)->first();
         $team->team_id = $request->input('team_id');
         $team->round_id = $request->input('round_id');
         $team->scoresheet = $request->input('scoresheet');
