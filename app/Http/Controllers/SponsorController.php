@@ -109,7 +109,42 @@ class SponsorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate the submission
+        $messages = [
+            'rank.required' => 'Please select a sponsor rank.',
+            'sponsor_image.required' => 'Please choose a sponsor image.',
+            'sponsor_image.file' => 'Sponsor image must be a file.',
+            'sponsor_image.mimes' => 'Unsupported image format. Sponsor logo must be a jpg, png, or gif.',
+            'duration.required' => 'Please input a duration for the sponsor image to show.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'rank' => 'required',
+            'sponsor_image' => 'required|file|mimes:jpeg,jpg,png,gif',
+            'duration' => 'required',
+        ], $messages);
+
+        if($validator->fails()){
+            $messages = $validator->messages();
+            return array('errors'=>$messages);
+        }
+
+        $current_tournament_id = 1; // probs get this from session
+
+        $sponsor = Sponsor::find($id)->first();
+        $sponsor->tournament_id = $current_tournament_id;
+        $sponsor->rank = $request->input('rank');
+        // sponsor image upload logic
+        if($request->sponsor_image) {
+            $filename = 'T' . $current_tournament_id . '-' . bin2hex(openssl_random_pseudo_bytes(2)) . '-' . $request->sponsor_image->getClientOriginalName();
+            $sponsor->sponsor_image = $filename;
+            $request->sponsor_image->storeAs('public/uploads', $filename);
+        }
+        // end sponsor image upload logic
+        $sponsor->duration = $request->input('duration');
+        $sponsor->save();
+
+        return $team;
     }
 
     /**
@@ -120,6 +155,11 @@ class SponsorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sponsor = Sponsor::find($id)->first();
+        if(!$sponsor){
+            abort(404,'Sponsor not found');
+        }
+        $sponsor->delete();
+        return $sponsor;
     }
 }

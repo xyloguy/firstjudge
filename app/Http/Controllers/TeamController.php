@@ -77,6 +77,9 @@ class TeamController extends Controller
     public function show($id)
     {
         $team = Team::find($id)->first();
+        if(!$team){
+            abort(404,'Team not found');
+        }
         return $team;
     }
 
@@ -135,6 +138,11 @@ class TeamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $team = Team::find($id)->first();
+        if(!$team){
+            abort(404,'Team not found');
+        }
+        $team->delete();
+        return $team;
     }
 }
