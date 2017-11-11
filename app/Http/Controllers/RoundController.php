@@ -51,7 +51,7 @@ class RoundController extends Controller
             return array('errors'=>$messages);
         }
 
-        $current_tournament_id = 0; // probs get this from session
+        $current_tournament_id = 1; // probs get this from session
 
         $round = new Round;
         $round->tournament_id = $current_tournament_id;
@@ -110,7 +110,7 @@ class RoundController extends Controller
             return array('errors'=>$messages);
         }
 
-        $current_tournament_id = 0; // probs get this from session
+        $current_tournament_id = 1; // probs get this from session
 
         $round = Round::find($id)->first();
         $round->tournament_id = $current_tournament_id;

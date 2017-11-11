@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Team;
-use Auth;
+use App\Sponsor;
 use Illuminate\Http\Request;
-use Validator;
-use Illuminate\Validation\Rule;
 
-class TeamController extends Controller
+class SponsorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +14,14 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
-        $tournaments = Team::all();
-        return $tournaments;
+        $sponsors = Sponsor::all();
+        return $sponsors;
+    }
+
+    public function tournament_sponsors($tournament_id)
+    {
+        $sponsors = Sponsor::where('tournament_id',$tournament_id)->get();
+        return $sponsors;
     }
 
     /**
@@ -42,13 +44,17 @@ class TeamController extends Controller
     {
         // Validate the submission
         $messages = [
-            'team_number.required' => 'Team number is required.',
-            'team_name.required' => 'Team name is required.',
+            'rank.required' => 'Please select a sponsor rank.',
+            'sponsor_image.required' => 'Please choose a sponsor image.',
+            'sponsor_image.file' => 'Sponsor image must be a file.',
+            'sponsor_image.mimes' => 'Unsupported image format. Sponsor logo must be a jpg, png, or gif.',
+            'duration.required' => 'Please input a duration for the sponsor image to show.',
         ];
 
         $validator = Validator::make($request->all(), [
-            'team_number' => 'required',
-            'team_name' => 'required',
+            'rank' => 'required',
+            'sponsor_image' => 'required|file|mimes:jpeg,jpg,png,gif',
+            'duration' => 'required',
         ], $messages);
 
         if($validator->fails()){
@@ -58,14 +64,18 @@ class TeamController extends Controller
 
         $current_tournament_id = 1; // probs get this from session
 
-        $team = new Team;
-        $team->tournament_id = $current_tournament_id;
-        $team->team_number = $request->input('team_number');
-        $team->team_name = $request->input('team_name');
-        $team->save();
+        $sponsor = new Sponsor;
+        $sponsor->tournament_id = $current_tournament_id;
+        $sponsor->rank = $request->input('rank');
+        // sponsor image upload logic
+        $filename = 'T'.$current_tournament_id.'-'.bin2hex(openssl_random_pseudo_bytes(2)).'-'.$request->sponsor_image->getClientOriginalName();
+        $sponsor->sponsor_image = $filename;
+        $request->sponsor_image->storeAs('public/uploads', $filename);
+        // end sponsor image upload logic
+        $sponsor->duration = $request->input('duration');
+        $sponsor->save();
 
         return $team;
-
     }
 
     /**
@@ -76,8 +86,7 @@ class TeamController extends Controller
      */
     public function show($id)
     {
-        $team = Team::find($id)->first();
-        return $team;
+        //
     }
 
     /**
@@ -100,31 +109,7 @@ class TeamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validate the submission
-        $messages = [
-            'team_number.required' => 'Team number is required.',
-            'team_name.required' => 'Team name is required.',
-        ];
-
-        $validator = Validator::make($request->all(), [
-            'team_number' => 'required',
-            'team_name' => 'required',
-        ], $messages);
-
-        if($validator->fails()){
-            $messages = $validator->messages();
-            return array('errors'=>$messages);
-        }
-
-        $current_tournament_id = 1; // probs get this from session
-
-        $team = Team::find($id)->first();
-        $team->tournament_id = $current_tournament_id;
-        $team->team_number = $request->input('team_number');
-        $team->team_name = $request->input('team_name');
-        $team->save();
-
-        return $team;
+        //
     }
 
     /**
