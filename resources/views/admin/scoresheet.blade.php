@@ -7,20 +7,18 @@
         <div class="col-xs-6 form-group">
             <label for="sel1">Team:</label>
             <select class="form-control" id="sel1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+                @foreach($teams as $team)
+                <option value="{{ $team->id }}">{{ $team->team_number }} {{ $team->team_name }}</option>
+                @endforeach
             </select>
         </div>
 
         <div class="col-xs-6 form-group">
             <label for="sel2">Round:</label>
             <select class="form-control" id="sel2">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+                @foreach($rounds as $round)
+                    <option value="{{ $round->id }}">Round {{ $round->round_number }}</option>
+                @endforeach
             </select>
         </div>
     </div>
