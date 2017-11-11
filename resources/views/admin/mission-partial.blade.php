@@ -17,7 +17,7 @@
                                type="radio"
                                id="{{ $question->getId() . $answer }}"
                                class="mission-question"
-                               name="{{ $question->getId() }}">
+                               name="scoresheet[{{ $question->getId() }}]">
                         {{ $text }}
                     </label>
                 @endforeach

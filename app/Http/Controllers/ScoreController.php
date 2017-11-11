@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\HydroDynamics\HydroDynamicsScoresheet;
 use App\Score;
+use App\Scoring\Submission;
 use Illuminate\Http\Request;
 
 class ScoreController extends Controller
@@ -38,16 +40,17 @@ class ScoreController extends Controller
     {
         // validate or something
 
-        $round_total = 0; // calculate from score sheet - probs in separate class
+        $submission = new Submission($request->input('scoresheet'));
+        $round_total = (new HydroDynamicsScoresheet)->score($submission); // calculate from score sheet - probs in separate class
 
         $team = new Score;
         $team->team_id = $request->input('team_id');
         $team->round_id = $request->input('round_id');
-        $team->scoresheet = $request->input('scoresheet');
+        $team->scoresheet = json_encode($request->input('scoresheet'));
         $team->round_total = $round_total;
         $team->save();
 
-        return $team;
+        return redirect('/admin/score');
     }
 
     /**

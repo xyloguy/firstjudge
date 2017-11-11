@@ -28,4 +28,5 @@ Route::get('/admin/score', function () {
        'rounds' => \App\Round::orderBy('round_number')->get(),
    ]);
 });
+Route::post('/admin/score', 'ScoreController@store');
 Route::get('/admin/results', 'TeamController@results');
