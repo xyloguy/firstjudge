@@ -16,6 +16,7 @@
                                value="{{ $answer }}"
                                type="radio"
                                id="{{ $question->getId() . $answer }}"
+                               class="mission-question"
                                name="{{ $question->getId() }}">
                         {{ $text }}
                     </label>
