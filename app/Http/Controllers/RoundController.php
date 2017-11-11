@@ -129,6 +129,11 @@ class RoundController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $round = Round::find($id)->first();
+        if(!$round){
+            abort(404,'Round not found');
+        }
+        $round->delete();
+        return $round;
     }
 }

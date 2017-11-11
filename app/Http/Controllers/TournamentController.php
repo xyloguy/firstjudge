@@ -47,8 +47,8 @@ class TournamentController extends Controller
      */
     public function show($id)
     {
-        $tournaments = Tournament::with('teams')->find($id)->first();
-        return $tournaments;
+        $tournament = Tournament::with('teams')->find($id)->first();
+        return $tournament;
     }
 
     /**
@@ -82,6 +82,11 @@ class TournamentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tournament = Tournament::find($id)->first();
+        if(!$tournament){
+            abort(404,'Tournament not found');
+        }
+        $tournament->delete();
+        return $tournament;
     }
 }
