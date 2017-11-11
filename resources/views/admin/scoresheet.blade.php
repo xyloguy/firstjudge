@@ -27,11 +27,11 @@
             </div>
         </div>
 
-        <div class="alert alert-warning alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Warning!</strong> A scoresheet has been saved for this this team this round.
-            Any changes will affect the team's current score.
-        </div>
+        {{--<div class="alert alert-warning alert-dismissable">--}}
+            {{--<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>--}}
+            {{--<strong>Warning!</strong> A scoresheet has been saved for this this team this round.--}}
+            {{--Any changes will affect the team's current score.--}}
+        {{--</div>--}}
 
         @foreach($scoresheet->getMissions() as $mission)
             @include('admin/mission-partial')
