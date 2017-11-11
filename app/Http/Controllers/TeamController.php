@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Team;
+use App\Round;
 use Auth;
 use Illuminate\Http\Request;
 use Validator;
@@ -20,6 +21,20 @@ class TeamController extends Controller
         //
         $tournaments = Team::all();
         return $tournaments;
+    }
+
+    public function results($tournament_id=1)
+    {
+        //
+        $teams = Team::with('scores')->where('tournament_id',$tournament_id)->get();
+        $rounds = Round::where('tournament_id',$tournament_id)->get();
+        $teams = $teams->sortByDesc(function($team){
+           return $team->highest_score();
+        });
+        return view('admin/results', [
+            'teams' => $teams,
+            'rounds' => $rounds
+        ]);
     }
 
     /**

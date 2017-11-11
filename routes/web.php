@@ -24,3 +24,4 @@ Route::get('/admin/score', function () {
        'scoresheet' => new \App\HydroDynamics\HydroDynamicsScoresheet()
    ]);
 });
+Route::get('/admin/results', 'TeamController@results');
