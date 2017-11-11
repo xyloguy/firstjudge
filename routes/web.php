@@ -21,7 +21,11 @@ Route::get('/timer', function () {
 
 Route::get('/admin/score', function () {
    return view('admin/scoresheet', [
-       'scoresheet' => new \App\HydroDynamics\HydroDynamicsScoresheet()
+       'scoresheet' => new \App\HydroDynamics\HydroDynamicsScoresheet(),
+       'teams' => \App\Team::all()->sort(function($a,$b){
+           return strnatcmp($a->team_number,$b->team_number);
+       }),
+       'rounds' => \App\Round::orderBy('round_number')->get(),
    ]);
 });
 Route::get('/admin/results', 'TeamController@results');
