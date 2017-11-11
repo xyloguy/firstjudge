@@ -23,10 +23,6 @@ Route::get('/admin', function () {
     return redirect('admin/score');
 });
 
-Route::get('/admin/timer', function () {
-    return view('admin/timer');
-});
-
 Route::get('/admin/score', function () {
    return view('admin/scoresheet', [
        'scoresheet' => new \App\HydroDynamics\HydroDynamicsScoresheet(),
@@ -40,5 +36,8 @@ Route::post('/admin/score', 'ScoreController@store');
 Route::get('/admin/results', 'TeamController@results');
 
 Route::get('/admin/timer', function() {
-   return view('admin/timer');
+    return view('admin/timer', [
+        'tournament' => \App\Tournament::first()
+    ]);
 });
+Route::put('/admin/tournaments/{id}', 'TournamentController@update');
