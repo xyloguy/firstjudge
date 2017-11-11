@@ -71,7 +71,10 @@ class TournamentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tournament = Tournament::find($id);
+        $tournament->timer_end = gmdate('Y-m-d H:i:s', strtotime($request->input('timer_end')));
+        $tournament->save();
+        return redirect('/admin/timer');
     }
 
     /**
