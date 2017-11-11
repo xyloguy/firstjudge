@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Scoring;
+
 class CountQuestion extends Question
 {
     public function __construct(string $identifier, string $questionQuestionText, int $maxInclusive, int $step = 1)

@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/timer', function () {
+    return view('common-timer');
+});
+
+Route::get('/admin/score', function () {
+   return view('admin/scoresheet', [
+       'scoresheet' => new \App\HydroDynamics\HydroDynamicsScoresheet()
+   ]);
+});

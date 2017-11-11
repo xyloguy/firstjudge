@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Scoring;
+
 class CountEachScoring extends Scoring
 {
     public function __construct(CountQuestion $question, int $points)

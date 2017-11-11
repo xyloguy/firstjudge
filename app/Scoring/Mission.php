@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Scoring;
+
+
 class Mission
 {
     /**
@@ -125,5 +128,13 @@ class Mission
     private function getCurrentQuestionId(): string
     {
         return count($this->questions) . $this->getId();
+    }
+
+    /**
+     * @return Question[]
+     */
+    public function getQuestions(): array
+    {
+        return $this->questions;
     }
 }

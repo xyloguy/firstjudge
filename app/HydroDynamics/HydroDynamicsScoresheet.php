@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+namespace App\HydroDynamics;
+
+use App\Scoring\Mission;
+use App\Scoring\Scoresheet;
+
 class HydroDynamicsScoresheet extends Scoresheet
 {
     public function __construct()

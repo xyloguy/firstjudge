@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Scoring;
+
+
 abstract class Scoring
 {
     /**
@@ -40,21 +43,25 @@ abstract class Scoring
     public function givenYes(YesOrNoQuestion $sourceQuestion): self
     {
         $this->conditions[] = new ConditionEquals($sourceQuestion, 'yes');
+        return $this;
     }
 
     public function givenNo(YesOrNoQuestion $sourceQuestion): self
     {
         $this->conditions[] = new ConditionEquals($sourceQuestion, 'no');
+        return $this;
     }
 
     public function givenCount(CountQuestion $sourceQuestion, int $expected): self
     {
         $this->conditions[] = new ConditionEquals($sourceQuestion, (string)$expected);
+        return $this;
     }
 
     public function givenNotCount(CountQuestion $sourceQuestion, int $notExpected): self
     {
-        $this->conditions[] = new ConditionNotEquals($sourceQuestion, $notExpected);
+        $this->conditions[] = new ConditionNotEquals($sourceQuestion, (string)$notExpected);
+        return $this;
     }
 
     private function addValue(int $points, string $provided): void
