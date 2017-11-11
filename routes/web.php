@@ -19,6 +19,14 @@ Route::get('/timer', function () {
     return view('common-timer');
 });
 
+Route::get('/admin', function () {
+    return redirect('admin/score');
+});
+
+Route::get('/admin/timer', function () {
+    return view('admin/timer');
+});
+
 Route::get('/admin/score', function () {
    return view('admin/scoresheet', [
        'scoresheet' => new \App\HydroDynamics\HydroDynamicsScoresheet(),
@@ -29,3 +37,7 @@ Route::get('/admin/score', function () {
    ]);
 });
 Route::get('/admin/results', 'TeamController@results');
+
+Route::get('/admin/timer', function() {
+   return view('admin/timer');
+});
