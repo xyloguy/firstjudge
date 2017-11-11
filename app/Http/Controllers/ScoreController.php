@@ -58,7 +58,8 @@ class ScoreController extends Controller
      */
     public function show($id)
     {
-        //
+        $score = Score::find($id)->first();
+        return $score;
     }
 
     /**
