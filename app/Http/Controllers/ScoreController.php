@@ -62,6 +62,12 @@ class ScoreController extends Controller
         return $score;
     }
 
+    public function showByTeamRound($team_id,$round_id)
+    {
+        $score = Score::where('team_id',$team_id)->where('round_id',$round_id)->first();
+        return $score;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
