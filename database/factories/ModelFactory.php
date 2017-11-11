@@ -32,3 +32,12 @@ $factory->define(App\Team::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Sponsor::class, function (Faker\Generator $faker) {
+    return [
+        'tournament_id' => 1,
+        'rank' => $faker->numberBetween(1,3),
+        'sponsor_image' => $faker->imageUrl(300, 300, 'cats'),
+        'duration' => $faker->randomElement($array = array (5,10,15,20,30)),
+    ];
+});
+

@@ -19,4 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('tournament', 'TournamentController');
 Route::resource('team', 'TeamController');
+Route::resource('score', 'ScoreController');
+Route::get('score/byteamround/{team]/{round}', 'ScoreController@ShowByTeamRound');
+Route::resource('sponsor', 'SponsorController');
 

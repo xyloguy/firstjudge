@@ -13,7 +13,8 @@ class RoundController extends Controller
      */
     public function index()
     {
-        //
+        $rounds = Round::all();
+        return $rounds;
     }
 
     /**
@@ -34,7 +35,31 @@ class RoundController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the submission
+        $messages = [
+            'round_number.required' => 'Round number is required.',
+            'round_name.required' => 'Round name is required.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'round_number' => 'required',
+            'round_name' => 'required',
+        ], $messages);
+
+        if($validator->fails()){
+            $messages = $validator->messages();
+            return array('errors'=>$messages);
+        }
+
+        $current_tournament_id = 1; // probs get this from session
+
+        $round = new Round;
+        $round->tournament_id = $current_tournament_id;
+        $round->round_number = $request->input('round_number');
+        $round->round_name = $request->input('round_name');
+        $round->save();
+
+        return $round;
     }
 
     /**
@@ -45,7 +70,8 @@ class RoundController extends Controller
      */
     public function show($id)
     {
-        //
+        $round = Rounds::find($id)->first();
+        return $round;
     }
 
     /**
@@ -68,7 +94,31 @@ class RoundController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate the submission
+        $messages = [
+            'round_number.required' => 'Round number is required.',
+            'round_name.required' => 'Round name is required.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'round_number' => 'required',
+            'round_name' => 'required',
+        ], $messages);
+
+        if($validator->fails()){
+            $messages = $validator->messages();
+            return array('errors'=>$messages);
+        }
+
+        $current_tournament_id = 1; // probs get this from session
+
+        $round = Round::find($id)->first();
+        $round->tournament_id = $current_tournament_id;
+        $round->round_number = $request->input('round_number');
+        $round->round_name = $request->input('round_name');
+        $round->save();
+
+        return $round;
     }
 
     /**
