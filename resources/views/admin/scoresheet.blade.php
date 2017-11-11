@@ -3,12 +3,14 @@
 
 <div class="container" id="scoresheet">
 
-    <form>
+    <form method="post">
+
+        <?= csrf_field(); ?>
 
         <div class="row">
             <div class="col-xs-6 form-group">
                 <label for="sel1">Team:</label>
-                <select class="form-control" id="sel1">
+                <select class="form-control" id="sel1" name="team_id">
                     @foreach($teams as $team)
                     <option value="{{ $team->id }}">{{ $team->team_number }} {{ $team->team_name }}</option>
                     @endforeach
@@ -17,7 +19,7 @@
 
             <div class="col-xs-6 form-group">
                 <label for="sel2">Round:</label>
-                <select class="form-control" id="sel2">
+                <select class="form-control" id="sel2" name="round_id">
                     @foreach($rounds as $round)
                         <option value="{{ $round->id }}">Round {{ $round->round_number }}</option>
                     @endforeach
@@ -39,9 +41,7 @@
             <input type="submit" value="Save" class="btn btn-success">
         </div>
 
-
     </form>
-
 </div>
 
 <script type="text/javascript">
