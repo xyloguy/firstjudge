@@ -5,6 +5,7 @@
                 <a class="navbar-brand" href="#">FLL Judge</a>
             </div>
             <ul class="nav navbar-nav">
+                <li><a href="/admin/teams">Teams</a></li>
                 <li><a href="/admin/results">Results</a></li>
                 <li><a href="/admin/score">Scoresheet</a></li>
                 <li><a href="/admin/timer">Timer Control</a></li>

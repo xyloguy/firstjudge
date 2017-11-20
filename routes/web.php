@@ -41,3 +41,5 @@ Route::get('/admin/timer', function() {
     ]);
 });
 Route::put('/admin/tournaments/{id}', 'TournamentController@update');
+
+Route::get('/admin/teams', 'TeamController@index');

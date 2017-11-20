@@ -8,6 +8,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Validation\Rule;
+use DB;
 
 class TeamController extends Controller
 {
@@ -19,8 +20,9 @@ class TeamController extends Controller
     public function index()
     {
         //
-        $tournaments = Team::all();
-        return $tournaments;
+        $teams = Team::orderBy(DB::raw('LENGTH(team_number)'))->orderBy('team_number')->get();
+        //return $teams;
+        return view('admin/teams', ['teams' => $teams]);
     }
 
     public function results($tournament_id=1)
@@ -45,6 +47,7 @@ class TeamController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
